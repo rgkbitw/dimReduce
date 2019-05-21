@@ -1,0 +1,1607 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{modified\_final}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{manifold} \PY{k}{import} \PY{n}{TSNE}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Loading the iris datset}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}iris}
+        \PY{n}{iris} \PY{o}{=} \PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{iris}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} dict\_keys(['data', 'target', 'target\_names', 'DESCR', 'feature\_names'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{iris}\PY{o}{.}\PY{n}{target\PYZus{}names}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} array(['setosa', 'versicolor', 'virginica'], dtype='<U10')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{iris}\PY{o}{.}\PY{n}{feature\PYZus{}names}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} ['sepal length (cm)',
+          'sepal width (cm)',
+          'petal length (cm)',
+          'petal width (cm)']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{iris}\PY{o}{.}\PY{n}{target}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{manifold} \PY{k}{import} \PY{n}{TSNE}
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} X\PYZus{}embedded = TSNE(n\PYZus{}components=2).fit\PYZus{}transform(iris.data)}
+         \PY{n}{X\PYZus{}embedded} \PY{o}{=} \PY{n}{TSNE}\PY{p}{(}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+         \PY{n}{X\PYZus{}embedded}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} (150, 2)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} [<matplotlib.lines.Line2D at 0x166b2f28358>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} [<matplotlib.lines.Line2D at 0x166b2ec8438>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)} \PY{p}{)}
+         \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{target}  \PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} <matplotlib.collections.PathCollection at 0x166b326beb8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{Limts} \PY{o}{=} \PY{p}{[} \PY{p}{[} \PY{n}{x\PYZus{}min} \PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{]} \PY{p}{,} \PY{p}{[}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{]} \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{Limts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} [[-25.9487, 20.243372], [-8.339147, 4.883639]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}good\PYZus{}size}\PY{p}{(}\PY{n}{Limits}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{Limits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{Limits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{Limits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{Limits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{floor} \PY{p}{,} \PY{n}{ceil}
+             \PY{c+c1}{\PYZsh{} Clean the matrix}
+             \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{floor}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{)}
+             \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{ceil}\PY{p}{(}\PY{n}{x\PYZus{}max}\PY{p}{)}
+             \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{floor}\PY{p}{(}\PY{n}{y\PYZus{}min}\PY{p}{)}
+             \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{ceil}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Printing the cleaend up values.}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,}\PY{n}{x\PYZus{}max}\PY{p}{,}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Fitting the size to handle the windows}
+             \PY{n}{a} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}min}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{windowSize}
+             \PY{n}{b} \PY{o}{=} \PY{p}{(}\PY{n}{y\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}min}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{windowSize}
+             
+             \PY{k}{if} \PY{p}{(} \PY{p}{(}\PY{n}{x\PYZus{}max} \PY{o}{+} \PY{n}{a}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{windowSize} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{x\PYZus{}max} \PY{o}{+} \PY{n}{a}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{x\PYZus{}max} \PY{o}{+} \PY{p}{(}\PY{n}{windowSize} \PY{o}{\PYZhy{}} \PY{n}{a}\PY{p}{)}
+             
+             \PY{k}{if} \PY{p}{(} \PY{p}{(}\PY{n}{y\PYZus{}max} \PY{o}{+} \PY{n}{b}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{windowSize} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{y\PYZus{}max} \PY{o}{+} \PY{n}{b}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{y\PYZus{}max} \PY{o}{+} \PY{p}{(}\PY{n}{windowSize} \PY{o}{\PYZhy{}} \PY{n}{b}\PY{p}{)}
+                 
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{You Can use this matrix now.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}min=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x\PYZus{}min}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}max=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x\PYZus{}max}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y\PYZus{}min=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y\PYZus{}min}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y\PYZus{}max=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y\PYZus{}max}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{And the Matrix Shape:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{(}\PY{n}{x\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}min}\PY{p}{)} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ * }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{(}\PY{n}{y\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}min}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{p}{[}\PY{p}{[}\PY{n}{x\PYZus{}min}\PY{p}{,}\PY{n}{x\PYZus{}max}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{y\PYZus{}min}\PY{p}{,}\PY{n}{y\PYZus{}max}\PY{p}{]}\PY{p}{]}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{find\PYZus{}good\PYZus{}size}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-26 21 -9 5
+You Can use this matrix now.
+X\_min= -26
+X\_max= 21
+Y\_min= -9
+Y\_max= 5
+And the Matrix Shape: 47  *  14
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} [[-26, 21], [-9, 5]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{find\PYZus{}good\PYZus{}size}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-26 21 -9 5
+You Can use this matrix now.
+X\_min= -26
+X\_max= 24
+Y\_min= -9
+Y\_max= 11
+And the Matrix Shape: 50  *  20
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} [[-26, 24], [-9, 11]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{k}{def} \PY{n+nf}{tell\PYZus{}windows}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+             \PY{n}{g} \PY{o}{=} \PY{n}{find\PYZus{}good\PYZus{}size}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Going Row Wise:}
+             \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}Window:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{count}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X:[}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i} \PY{o}{+}\PY{n}{windowSize} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y:[}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{j}\PY{o}{+} \PY{n}{windowSize} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Count:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{count}\PY{p}{)}
+             \PY{n}{ans} \PY{o}{=} \PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{p}{(}\PY{n}{windowSize} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Expected Count:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ans}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OKAY:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{count} \PY{o}{==} \PY{n}{ans} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{tell\PYZus{}windows}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 3 0 3
+You Can use this matrix now.
+X\_min= 0
+X\_max= 3
+Y\_min= 0
+Y\_max= 3
+And the Matrix Shape: 3  *  3
+<Window: 1 > X:[ 0 , 1 ] Y:[ 0 , 1 ]
+<Window: 2 > X:[ 0 , 1 ] Y:[ 1 , 2 ]
+<Window: 3 > X:[ 0 , 1 ] Y:[ 2 , 3 ]
+<Window: 4 > X:[ 1 , 2 ] Y:[ 0 , 1 ]
+<Window: 5 > X:[ 1 , 2 ] Y:[ 1 , 2 ]
+<Window: 6 > X:[ 1 , 2 ] Y:[ 2 , 3 ]
+<Window: 7 > X:[ 2 , 3 ] Y:[ 0 , 1 ]
+<Window: 8 > X:[ 2 , 3 ] Y:[ 1 , 2 ]
+<Window: 9 > X:[ 2 , 3 ] Y:[ 2 , 3 ]
+Total Count: 9
+Expected Count: 9
+OKAY: True
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{tell\PYZus{}windows}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 3 0 3
+You Can use this matrix now.
+X\_min= 0
+X\_max= 3
+Y\_min= 0
+Y\_max= 3
+And the Matrix Shape: 3  *  3
+<Window: 1 > X:[ 0 , 3 ] Y:[ 0 , 3 ]
+Total Count: 1
+Expected Count: 1
+OKAY: True
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{tell\PYZus{}windows}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 3 0 3
+You Can use this matrix now.
+X\_min= 0
+X\_max= 5
+Y\_min= 0
+Y\_max= 5
+And the Matrix Shape: 5  *  5
+<Window: 1 > X:[ 0 , 5 ] Y:[ 0 , 5 ]
+Total Count: 1
+Expected Count: 1
+OKAY: True
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{Limts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} [[-25.9487, 20.243372], [-8.339147, 4.883639]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{c+c1}{\PYZsh{} Okay So now We have a function which finds the windows we just now need to calculate the entropy in this window.}
+          \PY{k}{def} \PY{n+nf}{calEntropy}\PY{p}{(}\PY{n}{window}\PY{p}{,}\PY{n}{label}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Takes: [x\PYZus{}min, x\PYZus{}max],[y\PYZus{}min, y\PYZus{}max]}\PY{l+s+s1}{\PYZsq{}}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{returns entropy of the window}\PY{l+s+s1}{\PYZsq{}}
+              \PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max} \PY{p}{,} \PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{window}
+              \PY{c+c1}{\PYZsh{} Set up entropy to be zero}
+              \PY{n}{en} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{log}
+              \PY{n}{c} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{} Calculate the number of samples in this window.}
+              \PY{c+c1}{\PYZsh{} X\PYZus{}embedded stores the data.}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{150}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{cx} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                  \PY{n}{cy} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                  \PY{k}{if} \PY{n}{x\PYZus{}min} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{cx} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{x\PYZus{}max} \PY{o+ow}{and} \PY{n}{y\PYZus{}min} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{cy} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{y\PYZus{}max}\PY{p}{:}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Found a sample of class:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                      \PY{n}{c}\PY{p}{[}\PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{n}{t} \PY{o}{=} \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{c}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{i}\PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                      \PY{n}{en} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}} \PY{p}{(} \PY{n}{i}\PY{o}{/}\PY{n}{t} \PY{o}{*} \PY{n}{log}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{n}{t}\PY{p}{)} \PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Found Entropy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{en}\PY{p}{)}
+              \PY{k}{return} \PY{n}{en}   
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{k}{def} \PY{n+nf}{tell\PYZus{}windows}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{,}\PY{n}{target}\PY{p}{)}\PY{p}{:}
+              \PY{n}{g} \PY{o}{=} \PY{n}{find\PYZus{}good\PYZus{}size}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Going Row Wise:}
+              \PY{n}{total\PYZus{}ent} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}Window:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{count}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X:[}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i} \PY{o}{+}\PY{n}{windowSize} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y:[}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{j}\PY{o}{+} \PY{n}{windowSize} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                      \PY{n}{total\PYZus{}ent} \PY{o}{+}\PY{o}{=} \PY{n}{calEntropy}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{windowSize}\PY{o}{+}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{windowSize}\PY{o}{+}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{target}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Count:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{count}\PY{p}{)}
+              \PY{n}{ans} \PY{o}{=} \PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{p}{(}\PY{n}{windowSize} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Expected Count:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ans}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OKAY:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{count} \PY{o}{==} \PY{n}{ans} \PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Done\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{total\PYZus{}ent}\PY{p}{)}
+              \PY{k}{return} \PY{n}{total\PYZus{}ent}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{k}{def} \PY{n+nf}{add\PYZus{}noise}\PY{p}{(}\PY{n}{percentage}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adds the given percentage of noise to the iris data and returns the new data}\PY{l+s+s1}{\PYZsq{}}
+              \PY{c+c1}{\PYZsh{} Original }
+              \PY{n}{target} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[} \PY{l+m+mi}{1} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[} \PY{l+m+mi}{2} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{]}  
+              \PY{c+c1}{\PYZsh{} 0   \PYZhy{} 50   : class 0 }
+              \PY{c+c1}{\PYZsh{} 50 \PYZhy{} 100   : class 1}
+              \PY{c+c1}{\PYZsh{} 100 \PYZhy{} 150  : class 2}
+              \PY{c+c1}{\PYZsh{} We will change the labels in a class label randomly}
+              \PY{k+kn}{import} \PY{n+nn}{random}
+              \PY{c+c1}{\PYZsh{} Offset for percentage =\PYZgt{} (window size)* precentage}
+              \PY{n}{offset} \PY{o}{=} \PY{l+m+mi}{50} \PY{o}{*} \PY{n}{percentage} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{100}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{o}{+} \PY{n}{offset} \PY{p}{)}\PY{p}{:}
+                  \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Got the new labeled data}
+              \PY{c+c1}{\PYZsh{} Now we can plot the tsne with this.}
+              \PY{c+c1}{\PYZsh{}print(\PYZdq{}Plotting the data with Noise =\PYZgt{} \PYZdq{}, percentage , \PYZdq{} \PYZpc{}\PYZdq{})}
+              \PY{n}{figure}\PY{p}{(} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+              \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{242}\PY{p}{)}
+              \PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{target}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Done!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{k}{return} \PY{n}{target}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{k}{def} \PY{n+nf}{main}\PY{p}{(}\PY{n}{windowSize}\PY{p}{,} \PY{n}{noise}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{tell\PYZus{}windows}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{,}\PY{n}{add\PYZus{}noise}\PY{p}{(}\PY{n}{noise}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{xxxx} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{yyyy} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n}{xxxx}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+            \PY{n}{yyyy}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{main}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{xxxx}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:} [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{yyyy}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}119}]:} [1.9059782130166705,
+           5.833869503703472,
+           8.146882998185937,
+           10.507330121040468,
+           13.927450011307299,
+           14.301825684532538,
+           12.619612365784652,
+           15.087570013154586,
+           13.689747163330022,
+           13.465812334559693]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entropy vs Noise with window = 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{xxxx} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{yyyy} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n}{xxxx}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+            \PY{n}{yyyy}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{main}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xxxx}\PY{p}{,}\PY{n}{yyyy}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}Noise}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}Entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entropy vs Noise when window = 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{n}{dataSet}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}126}]:} [[[], []],
+           [[0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+            [1.2554823251787535,
+             8.73851878067532,
+             13.853681503172105,
+             18.878635726235473,
+             25.02940503282032,
+             28.127269243771856,
+             26.30719326841124,
+             25.858124148322695,
+             21.792007983531576,
+             22.716655925390782]],
+           [[], []],
+           [[0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+            [1.9059782130166705,
+             5.906832364815045,
+             8.501479237313205,
+             10.879963858860972,
+             14.168158576926993,
+             14.028571586277163,
+             14.32908036737314,
+             13.426159812900783,
+             12.847992308871694,
+             13.64677921343577]],
+           [[], []],
+           [[0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+            [0.8377336454040922,
+             3.1059009623027247,
+             4.348245698116212,
+             6.66788264811653,
+             7.452498242994488,
+             7.6894883073824065,
+             7.321481995767062,
+             7.438085109160104,
+             6.891550087350982,
+             7.177780753797773]]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The final plots are}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{k}{def} \PY{n+nf}{plotter}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dataSet}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{dataSet}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Window Size = }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The final plots are
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{c+c1}{\PYZsh{} Done !}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{make\PYZus{}s\PYZus{}curve}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{data}  \PY{o}{=} \PY{n}{make\PYZus{}s\PYZus{}curve}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{X} \PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{color}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} array([ 4.62590248, -0.74717365, -0.8089283 ,  0.64600174, -1.00856807,
+                -1.35994855,  0.30382899,  0.85694722,  1.09691957,  2.86387081,
+                -2.43520539,  3.10044656,  0.53626378,  1.54424571, -1.73270459,
+                 2.8778216 , -3.07983758,  3.61810578,  2.6289297 , -0.19716788,
+                 2.73497637,  0.86716022, -1.24633255, -2.9416969 ,  0.85888346,
+                 3.69539385, -4.0929808 ,  0.99843329,  3.48273766, -2.24468944,
+                -0.95683651, -2.12659622, -3.298821  , -1.17963896, -4.34202165,
+                 2.62842537, -2.13055023,  3.3530965 , -0.64357187,  0.07174887,
+                 4.13946263, -1.77985322, -3.23064293, -2.75697064, -3.61175332,
+                -3.91048314, -3.292621  , -2.96919097, -1.75862586,  2.99718299,
+                -1.92288939,  0.07895313,  1.65438796, -2.80766226, -4.67137716,
+                -0.61427325, -1.06844967, -1.28020641, -1.50579134, -1.14350657,
+                -2.15996905,  2.53145053, -4.56041779, -4.70760096, -2.71422103,
+                -1.53439067, -1.05214014,  3.78771644, -0.12673047, -2.602792  ,
+                -4.20325067,  1.62435824, -3.87119547, -4.48670075,  3.27418419,
+                 0.72213804, -4.21665516, -0.28512067, -2.88054798, -1.50001098,
+                 0.16021828, -1.1338392 ,  1.59326306,  0.79422103, -0.29942079,
+                 2.71402278, -2.25376839,  0.30884624, -1.57079085, -2.50465556,
+                 3.59327631,  0.56553859,  1.69692782,  3.03870457, -3.24425237,
+                 3.81761412, -4.06810105, -4.620459  , -2.56511165,  3.97996538])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{ticker} \PY{k}{import} \PY{n}{NullFormatter}
+        \PY{n}{Axes3D}
+        
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{251}\PY{p}{,} \PY{n}{projection} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Spectral}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{view\PYZus{}init}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{72}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} The shape of the data is as shown above}
+        \PY{c+c1}{\PYZsh{} Now we apply the tsne on this reduced dataset}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{manifold}
+        \PY{n}{tsne} \PY{o}{=} \PY{n}{manifold}\PY{o}{.}\PY{n}{TSNE}\PY{p}{(}\PY{n}{n\PYZus{}components} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{tsne}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{done}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{Y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Spectral}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{NullFormatter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{NullFormatter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+done
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Now applying the window and the weights}
+         \PY{n}{color}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} array([ 4.62590248, -0.74717365, -0.8089283 ,  0.64600174, -1.00856807,
+                -1.35994855,  0.30382899,  0.85694722,  1.09691957,  2.86387081,
+                -2.43520539,  3.10044656,  0.53626378,  1.54424571, -1.73270459,
+                 2.8778216 , -3.07983758,  3.61810578,  2.6289297 , -0.19716788,
+                 2.73497637,  0.86716022, -1.24633255, -2.9416969 ,  0.85888346,
+                 3.69539385, -4.0929808 ,  0.99843329,  3.48273766, -2.24468944,
+                -0.95683651, -2.12659622, -3.298821  , -1.17963896, -4.34202165,
+                 2.62842537, -2.13055023,  3.3530965 , -0.64357187,  0.07174887,
+                 4.13946263, -1.77985322, -3.23064293, -2.75697064, -3.61175332,
+                -3.91048314, -3.292621  , -2.96919097, -1.75862586,  2.99718299,
+                -1.92288939,  0.07895313,  1.65438796, -2.80766226, -4.67137716,
+                -0.61427325, -1.06844967, -1.28020641, -1.50579134, -1.14350657,
+                -2.15996905,  2.53145053, -4.56041779, -4.70760096, -2.71422103,
+                -1.53439067, -1.05214014,  3.78771644, -0.12673047, -2.602792  ,
+                -4.20325067,  1.62435824, -3.87119547, -4.48670075,  3.27418419,
+                 0.72213804, -4.21665516, -0.28512067, -2.88054798, -1.50001098,
+                 0.16021828, -1.1338392 ,  1.59326306,  0.79422103, -0.29942079,
+                 2.71402278, -2.25376839,  0.30884624, -1.57079085, -2.50465556,
+                 3.59327631,  0.56553859,  1.69692782,  3.03870457, -3.24425237,
+                 3.81761412, -4.06810105, -4.620459  , -2.56511165,  3.97996538])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{modified\PYZus{}class\PYZus{}getter}\PY{p}{(}\PY{n}{color}\PY{p}{)}\PY{p}{:}
+            \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{ceil}
+            \PY{n}{new\PYZus{}color} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{color}\PY{p}{:}
+                \PY{n}{new\PYZus{}color}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ceil}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{new\PYZus{}color}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{n\PYZus{}color} \PY{o}{=} \PY{n}{modified\PYZus{}class\PYZus{}getter}\PY{p}{(}\PY{n}{color}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{find\PYZus{}good\PYZus{}size}\PY{p}{(}\PY{n}{Limits}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{Limits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{Limits}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{Limits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{Limits}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{floor} \PY{p}{,} \PY{n}{ceil}
+             \PY{c+c1}{\PYZsh{} Clean the matrix}
+             \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{floor}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{)}
+             \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{ceil}\PY{p}{(}\PY{n}{x\PYZus{}max}\PY{p}{)}
+             \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{floor}\PY{p}{(}\PY{n}{y\PYZus{}min}\PY{p}{)}
+             \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{ceil}\PY{p}{(}\PY{n}{y\PYZus{}max}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Printing the cleaend up values.}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,}\PY{n}{x\PYZus{}max}\PY{p}{,}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Fitting the size to handle the windows}
+             \PY{n}{a} \PY{o}{=} \PY{p}{(}\PY{n}{x\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}min}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{windowSize}
+             \PY{n}{b} \PY{o}{=} \PY{p}{(}\PY{n}{y\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}min}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{windowSize}
+             
+             \PY{k}{if} \PY{p}{(} \PY{p}{(}\PY{n}{x\PYZus{}max} \PY{o}{+} \PY{n}{a}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{windowSize} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{x\PYZus{}max} \PY{o}{+} \PY{n}{a}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{x\PYZus{}max} \PY{o}{+} \PY{p}{(}\PY{n}{windowSize} \PY{o}{\PYZhy{}} \PY{n}{a}\PY{p}{)}
+             
+             \PY{k}{if} \PY{p}{(} \PY{p}{(}\PY{n}{y\PYZus{}max} \PY{o}{+} \PY{n}{b}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{windowSize} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{y\PYZus{}max} \PY{o}{+} \PY{n}{b}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{y\PYZus{}max} \PY{o}{+} \PY{p}{(}\PY{n}{windowSize} \PY{o}{\PYZhy{}} \PY{n}{b}\PY{p}{)}
+                 
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{You Can use this matrix now.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}min=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x\PYZus{}min}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X\PYZus{}max=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{x\PYZus{}max}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y\PYZus{}min=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y\PYZus{}min}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y\PYZus{}max=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y\PYZus{}max}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{And the Matrix Shape:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{(}\PY{n}{x\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}min}\PY{p}{)} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ * }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{(}\PY{n}{y\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}min}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{p}{[}\PY{p}{[}\PY{n}{x\PYZus{}min}\PY{p}{,}\PY{n}{x\PYZus{}max}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{y\PYZus{}min}\PY{p}{,}\PY{n}{y\PYZus{}max}\PY{p}{]}\PY{p}{]}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{X\PYZus{}embedded} \PY{o}{=} \PY{n}{Y}
+         \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{Lmts} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{x\PYZus{}min}\PY{p}{,}\PY{n}{x\PYZus{}max}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{Lmts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} [[-48.031948, 53.174355], [-28.483036, 33.060825]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{tell\PYZus{}windows}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+             \PY{n}{g} \PY{o}{=} \PY{n}{find\PYZus{}good\PYZus{}size}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Going Row Wise:}
+             \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}Window:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{count}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X:[}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i} \PY{o}{+}\PY{n}{windowSize} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y:[}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{j}\PY{o}{+} \PY{n}{windowSize} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Count:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{count}\PY{p}{)}
+             \PY{n}{ans} \PY{o}{=} \PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{p}{(}\PY{n}{windowSize} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Expected Count:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ans}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OKAY:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{count} \PY{o}{==} \PY{n}{ans} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Okay So now We have a function which finds the windows we just now need to calculate the entropy in this window.}
+         \PY{k}{def} \PY{n+nf}{calEntropy}\PY{p}{(}\PY{n}{window}\PY{p}{,}\PY{n}{label}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Takes: [x\PYZus{}min, x\PYZus{}max],[y\PYZus{}min, y\PYZus{}max]}\PY{l+s+s1}{\PYZsq{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{returns entropy of the window}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max} \PY{p}{,} \PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{window}
+             \PY{c+c1}{\PYZsh{} Set up entropy to be zero}
+             \PY{n}{en} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{log}
+             \PY{n}{c} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} Calculate the number of samples in this window.}
+             \PY{c+c1}{\PYZsh{} X\PYZus{}embedded stores the data.}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{150}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{cx} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{cy} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{k}{if} \PY{n}{x\PYZus{}min} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{cx} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{x\PYZus{}max} \PY{o+ow}{and} \PY{n}{y\PYZus{}min} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{cy} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{y\PYZus{}max}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Found a sample of class:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{c}\PY{p}{[}\PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{t} \PY{o}{=} \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{c}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{i}\PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{en} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}} \PY{p}{(} \PY{n}{i}\PY{o}{/}\PY{n}{t} \PY{o}{*} \PY{n}{log}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{n}{t}\PY{p}{)} \PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Found Entropy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{en}\PY{p}{)}
+             \PY{k}{return} \PY{n}{en}   
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{tell\PYZus{}windows}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{,}\PY{n}{target}\PY{p}{)}\PY{p}{:}
+             \PY{n}{g} \PY{o}{=} \PY{n}{find\PYZus{}good\PYZus{}size}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Going Row Wise:}
+             \PY{n}{total\PYZus{}ent} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}Window:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{count}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X:[}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i} \PY{o}{+}\PY{n}{windowSize} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y:[}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{j}\PY{o}{+} \PY{n}{windowSize} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                     \PY{n}{total\PYZus{}ent} \PY{o}{+}\PY{o}{=} \PY{n}{calEntropy}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{windowSize}\PY{o}{+}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{windowSize}\PY{o}{+}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{target}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Count:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{count}\PY{p}{)}
+             \PY{n}{ans} \PY{o}{=} \PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{p}{(}\PY{n}{windowSize} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Expected Count:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ans}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OKAY:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{count} \PY{o}{==} \PY{n}{ans} \PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Done\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{total\PYZus{}ent}\PY{p}{)}
+             \PY{k}{return} \PY{n}{total\PYZus{}ent}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{add\PYZus{}noise}\PY{p}{(}\PY{n}{percentage}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adds the given percentage of noise to the iris data and returns the new data}\PY{l+s+s1}{\PYZsq{}}
+             \PY{c+c1}{\PYZsh{} Original }
+             \PY{n}{target} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[} \PY{l+m+mi}{1} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[} \PY{l+m+mi}{2} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{]}  
+             \PY{c+c1}{\PYZsh{} 0   \PYZhy{} 50   : class 0 }
+             \PY{c+c1}{\PYZsh{} 50 \PYZhy{} 100   : class 1}
+             \PY{c+c1}{\PYZsh{} 100 \PYZhy{} 150  : class 2}
+             \PY{c+c1}{\PYZsh{} We will change the labels in a class label randomly}
+             \PY{k+kn}{import} \PY{n+nn}{random}
+             \PY{c+c1}{\PYZsh{} Offset for percentage =\PYZgt{} (window size)* precentage}
+             \PY{n}{offset} \PY{o}{=} \PY{l+m+mi}{50} \PY{o}{*} \PY{n}{percentage} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{100}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{o}{+} \PY{n}{offset} \PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{100} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Got the new labeled data}
+             \PY{c+c1}{\PYZsh{} Now we can plot the tsne with this.}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}Plotting the data with Noise =\PYZgt{} \PYZdq{}, percentage , \PYZdq{} \PYZpc{}\PYZdq{})}
+             \PY{n}{figure}\PY{p}{(} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+             \PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{242}\PY{p}{)}
+             \PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{target}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Done!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{target}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{main}\PY{p}{(}\PY{n}{windowSize}\PY{p}{,} \PY{n}{noise}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{tell\PYZus{}windows}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{,}\PY{n}{add\PYZus{}noise}\PY{p}{(}\PY{n}{noise}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Sort the class}
+         \PY{n}{dataTp} \PY{o}{=} \PY{p}{[} \PY{p}{[} \PY{n}{n\PYZus{}color}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{n\PYZus{}color}\PY{p}{)}\PY{p}{)} \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{There are }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataTp}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ Samples}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are  1000  Samples
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{dataTp} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{dataTp} \PY{p}{,} \PY{n}{key} \PY{o}{=} \PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nb}{set}\PY{p}{(}\PY{n}{n\PYZus{}color}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} \{-4, -3, -2, -1, 0, 1, 2, 3, 4, 5\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{counts}  \PY{o}{=} \PY{p}{\PYZob{}} \PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{dataTp}\PY{p}{:}
+             \PY{n}{counts}\PY{p}{[}\PY{n}{i}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Thre are these many samples:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{counts}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Thre are these many samples:
+\{-4: 70, -3: 95, -2: 112, -1: 116, 0: 103, 1: 115, 2: 100, 3: 118, 4: 95, 5: 76\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{dataTp}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} [-4, array([40.960987, 20.730944], dtype=float32)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Data tp Sample is of the form class and then the data setting the limit = 70}
+         \PY{n}{counts} \PY{o}{=} \PY{p}{\PYZob{}} \PY{n}{i}\PY{p}{:}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]} \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{X\PYZus{}embedded} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{dataTp}\PY{p}{:}
+             \PY{k}{if} \PY{n}{counts}\PY{p}{[}\PY{n}{i}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{l+m+mi}{70}\PY{p}{:}
+                 \PY{n}{counts}\PY{p}{[}\PY{n}{i}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{X\PYZus{}embedded}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}embedded}\PY{p}{)}\PY{p}{)}        
+                 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+700
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{c+c1}{\PYZsh{} Now we have 700 samples with proper classes}
+         \PY{c+c1}{\PYZsh{} Now we are ready to do add noise and others.}
+         \PY{k}{def} \PY{n+nf}{add\PYZus{}noise}\PY{p}{(}\PY{n}{percentage}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adds the given percentage of noise to the iris data and returns the new data}\PY{l+s+s1}{\PYZsq{}}
+             \PY{c+c1}{\PYZsh{} Original }
+             \PY{n}{target} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{target} \PY{o}{+}\PY{o}{=} \PY{p}{[} \PY{n}{j} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{70}\PY{p}{)} \PY{p}{]}
+                 
+             \PY{c+c1}{\PYZsh{} 0   \PYZhy{} 70   : class \PYZhy{}4 }
+             \PY{c+c1}{\PYZsh{} 70 \PYZhy{} 140   : class \PYZhy{}3}
+             \PY{c+c1}{\PYZsh{} 100 \PYZhy{} 150  : class 2}
+             \PY{c+c1}{\PYZsh{} We will change the labels in a class label randomly}
+             \PY{k+kn}{import} \PY{n+nn}{random}
+             \PY{c+c1}{\PYZsh{} Offset for percentage =\PYZgt{} (window size)* precentage}
+             \PY{n}{offset} \PY{o}{=} \PY{l+m+mi}{70} \PY{o}{*} \PY{n}{percentage} \PY{o}{/}\PY{o}{/} \PY{l+m+mi}{100}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{o}{+} \PY{n}{offset} \PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{70}\PY{p}{,}\PY{l+m+mi}{70} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{140}\PY{p}{,}\PY{l+m+mi}{140} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{210}\PY{p}{,}\PY{l+m+mi}{210} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{280}\PY{p}{,}\PY{l+m+mi}{280} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{350}\PY{p}{,}\PY{l+m+mi}{350} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{420}\PY{p}{,}\PY{l+m+mi}{420} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{490}\PY{p}{,}\PY{l+m+mi}{490} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{560}\PY{p}{,}\PY{l+m+mi}{560} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{630}\PY{p}{,}\PY{l+m+mi}{630} \PY{o}{+} \PY{n}{offset}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{target}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}    
+             
+             \PY{c+c1}{\PYZsh{} Got the new labeled data}
+             \PY{c+c1}{\PYZsh{} Now we can plot the tsne with this.}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}Plotting the data with Noise =\PYZgt{} \PYZdq{}, percentage , \PYZdq{} \PYZpc{}\PYZdq{})}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{done}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{n}{target} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{target}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{target}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Spectral}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{NullFormatter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{NullFormatter}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             \PY{k}{return} \PY{n}{target}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{X\PYZus{}embedded} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{X\PYZus{}embedded}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{add\PYZus{}noise}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+done
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Admin\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}deprecation.py:106: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{add\PYZus{}noise}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+done
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Admin\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}deprecation.py:106: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{add\PYZus{}noise}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+done
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Admin\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}deprecation.py:106: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{add\PYZus{}noise}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+done
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Admin\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}deprecation.py:106: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{add\PYZus{}noise}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+done
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Admin\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}cbook\textbackslash{}deprecation.py:106: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{c+c1}{\PYZsh{} Okay So now We have a function which finds the windows we just now need to calculate the entropy in this window.}
+         \PY{k}{def} \PY{n+nf}{calEntropy}\PY{p}{(}\PY{n}{window}\PY{p}{,}\PY{n}{label}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Takes: [x\PYZus{}min, x\PYZus{}max],[y\PYZus{}min, y\PYZus{}max]}\PY{l+s+s1}{\PYZsq{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{returns entropy of the window}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max} \PY{p}{,} \PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{window}
+             \PY{c+c1}{\PYZsh{} Set up entropy to be zero}
+             \PY{n}{en} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{log}
+             \PY{n}{c} \PY{o}{=} \PY{p}{\PYZob{}} \PY{n}{i}\PY{p}{:}\PY{l+m+mi}{0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]} \PY{p}{\PYZcb{}}
+             \PY{c+c1}{\PYZsh{} Calculate the number of samples in this window.}
+             \PY{c+c1}{\PYZsh{} X\PYZus{}embedded stores the data.}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{700}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{cx} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{cy} \PY{o}{=} \PY{n}{X\PYZus{}embedded}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{k}{if} \PY{n}{x\PYZus{}min} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{cx} \PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{x\PYZus{}max} \PY{o+ow}{and} \PY{n}{y\PYZus{}min} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{cy} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{y\PYZus{}max}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{}print(\PYZdq{}Found a sample of class:\PYZdq{},label[i])}
+                     \PY{n}{c}\PY{p}{[}\PY{n}{label}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{c}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{t} \PY{o}{+}\PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+           
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{c}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{en} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}} \PY{p}{(} \PY{n+nb}{int}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{t} \PY{o}{*} \PY{n}{log}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{t}\PY{p}{)} \PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}Found Entropy:\PYZdq{},en)}
+             \PY{k}{return} \PY{n}{en}   
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{k}{def} \PY{n+nf}{tell\PYZus{}windows}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{,}\PY{n}{target}\PY{p}{)}\PY{p}{:}
+             \PY{n}{g} \PY{o}{=} \PY{n}{find\PYZus{}good\PYZus{}size}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Going Row Wise:}
+             \PY{n}{total\PYZus{}ent} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{windowSize}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{c+c1}{\PYZsh{}print(\PYZdq{}\PYZlt{}Window:\PYZdq{},count,\PYZdq{}\PYZgt{}\PYZdq{},\PYZdq{}X:[\PYZdq{}, i, \PYZdq{},\PYZdq{}, i +windowSize , \PYZdq{}]\PYZdq{} , \PYZdq{}Y:[\PYZdq{}, j, \PYZdq{},\PYZdq{}, j+ windowSize ,\PYZdq{}]\PYZdq{})}
+                     \PY{n}{total\PYZus{}ent} \PY{o}{+}\PY{o}{=} \PY{n}{calEntropy}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{windowSize}\PY{o}{+}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{windowSize}\PY{o}{+}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{target}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}Total Count:\PYZdq{},count)}
+             \PY{n}{ans} \PY{o}{=} \PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{g}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{/}\PY{o}{/} \PY{p}{(}\PY{n}{windowSize} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}Expected Count:\PYZdq{},ans)}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}OKAY:\PYZdq{}, count == ans )}
+             \PY{c+c1}{\PYZsh{}print(\PYZdq{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}Done\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZdq{},total\PYZus{}ent)}
+             \PY{k}{return} \PY{n}{total\PYZus{}ent}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{k}{def} \PY{n+nf}{main}\PY{p}{(}\PY{n}{windowSize}\PY{p}{,} \PY{n}{noise}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{tell\PYZus{}windows}\PY{p}{(}\PY{n}{Limts}\PY{p}{,}\PY{n}{windowSize}\PY{p}{,}\PY{n}{add\PYZus{}noise}\PY{p}{(}\PY{n}{noise}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{Lmts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} [[-48.031948, 53.174355], [-28.483036, 33.060825]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{Limts} \PY{o}{=} \PY{n}{Lmts}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{dataSet}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}92}]:} [[[], []],
+          [[0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+           [2.0794415416798357,
+            11.033721876693992,
+            21.37429657282803,
+            23.915836234881155,
+            29.461013679360704,
+            36.85458360533346,
+            40.263686495868065,
+            41.18788273661466,
+            40.95683367642801,
+            40.95683367642802]],
+          [[], []],
+          [[0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+           [12.44922627641623,
+            46.765920055979294,
+            77.24751631302429,
+            103.43133685985369,
+            125.60496988531948,
+            140.61027681519454,
+            157.45304808506714,
+            168.10682945010552,
+            181.2481269982931,
+            178.23363123188722]],
+          [[], []],
+          [[0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+           [17.315633091953128,
+            41.659616809907135,
+            63.85058119180347,
+            84.05788278821896,
+            100.50704206493229,
+            119.2805014956314,
+            126.26870497670065,
+            143.16694891445556,
+            146.23172365771217,
+            145.81993389711383]]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The final plots are}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{plotter}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dataSet}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{dataSet}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Window Size = }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The final plots are
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_82_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_83_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The final plots are}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{plotter}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{dataSet}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{dataSet}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Window Size = }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Noise}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The final plots are
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plotter}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Done !}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
